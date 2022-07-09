@@ -1,3 +1,8 @@
-/dailyPaper/target/
+/web/target/
+/application/target/
+/domain/target/
+/infrastructure/target/
+/external/target/
+
 /.idea
-simpleLife.iml
+*.iml
