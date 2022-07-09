@@ -10,13 +10,17 @@
                         userId="${jdbc_username}"
                         password="${jdbc_password}"/>
 
-        <javaModelGenerator targetPackage="com.yrx.simple.life.eden.infrastructure.po" targetProject="infrastructure/src/main/java"/>
+        <!-- po类 -->
+        <javaModelGenerator targetPackage="com.yrx.simple.life.eden.infrastructure.po" targetProject="infrastructure/src/main/java" />
 
+        <!-- xml文件 -->
         <sqlMapGenerator targetPackage="mapper" targetProject="infrastructure/src/main/resources" />
 
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.yrx.simple.life.eden.infrastructure.mapper" targetProject="infrastructure/src/main/java"/>
+        <!-- mapper接口 -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.yrx.simple.life.eden.infrastructure.mapper" targetProject="infrastructure/src/main/java" />
 
-        <table tableName="demo_test"/>
+        <!-- 目标表名，并指定别名 -->
+        <table tableName="antidote" domainObjectName="AntidotePo" mapperName="AntidotePoMapper"/>
 
     </context>
 </generatorConfiguration>

@@ -3,6 +3,8 @@ package com.yrx.simple.life.eden.infrastructure.repository;
 import com.yrx.simple.life.eden.domain.entity.Antidote;
 import com.yrx.simple.life.eden.domain.persistence.AntidoteRepository;
 import com.yrx.simple.life.eden.infrastructure.converter.AntidoteConverter;
+import com.yrx.simple.life.eden.infrastructure.mapper.AntidotePoMapper;
+import com.yrx.simple.life.eden.infrastructure.mapper.extend.AntidotePoExtMapper;
 import com.yrx.simple.life.eden.infrastructure.po.AntidotePo;
 import org.springframework.stereotype.Repository;
 
@@ -11,7 +13,9 @@ import javax.annotation.Resource;
 @Repository
 public class AntidoteRepositoryImpl implements AntidoteRepository {
     @Resource
-    private AntidoteMapper antidoteMapper;
+    private AntidotePoMapper antidotePoMapper;
+    @Resource
+    private AntidotePoExtMapper antidotePoExtMapper;
     @Resource
     private AntidoteConverter antidoteConverter;
 
@@ -19,10 +23,10 @@ public class AntidoteRepositoryImpl implements AntidoteRepository {
     public Antidote save(Antidote antidote) {
         AntidotePo po = antidoteConverter.convertEntityToPo(antidote);
         if (po.getId() == null) {
-            Long id =  antidoteMapper.insert(po);
+            Long id =  antidotePoExtMapper.insert(po);
             antidote.setId(id);
         }else {
-            antidoteMapper.updateById(po);
+            antidotePoMapper.updateByPrimaryKey(po);
         }
         return antidote;
     }

@@ -1,0 +1,9 @@
+POST http://localhost:18512/eden/antidote/add
+Content-Type: application/json
+
+{
+  "title": "测试用",
+  "key": "centos",
+  "val": "123456",
+  "remark": "阅后即焚"
+}
