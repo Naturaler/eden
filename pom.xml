@@ -14,6 +14,7 @@
         <module>domain</module>
         <module>infrastructure</module>
         <module>external</module>
+        <module>kit</module>
     </modules>
 
     <properties>
@@ -36,6 +37,11 @@
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>8.0.19</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

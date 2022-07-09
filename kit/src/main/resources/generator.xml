@@ -1,0 +1,22 @@
+<!DOCTYPE generatorConfiguration PUBLIC
+        "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <properties resource="mybatisGenerator.properties"/>
+
+    <context id="simple" targetRuntime="MyBatis3Simple">
+        <jdbcConnection driverClass="${jdbc_driver}"
+                        connectionURL="${jdbc_url}"
+                        userId="${jdbc_username}"
+                        password="${jdbc_password}"/>
+
+        <javaModelGenerator targetPackage="com.yrx.simple.life.eden.infrastructure.po" targetProject="infrastructure/src/main/java"/>
+
+        <sqlMapGenerator targetPackage="mapper" targetProject="infrastructure/src/main/resources" />
+
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.yrx.simple.life.eden.infrastructure.mapper" targetProject="infrastructure/src/main/java"/>
+
+        <table tableName="demo_test"/>
+
+    </context>
+</generatorConfiguration>
