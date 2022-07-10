@@ -1,0 +1,20 @@
+<table class="table table-bordered table-striped">
+  <thead class="thead-dark">
+  <tr>
+    <th scope="col">id</th>
+    <th scope="col">title</th>
+    <th scope="col">key</th>
+    <th scope="col">val</th>
+    <th scope="col">remark</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let antidoteRsp of apiResponse.data">
+    <td>{{ antidoteRsp.id }}</td>
+    <td>{{ antidoteRsp.title }}</td>
+    <td>{{ antidoteRsp.key }}</td>
+    <td>{{ antidoteRsp.val }}</td>
+    <td>{{ antidoteRsp.remark }}</td>
+  </tr>
+  </tbody>
+</table>
