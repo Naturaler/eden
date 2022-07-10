@@ -15,6 +15,14 @@ public class ApiResponse<T> {
         return success;
     }
 
+    public static <T> ApiResponse<T> success(T data) {
+        ApiResponse<T> success = new ApiResponse<>();
+        success.setCode(200);
+        success.setMsg("成功");
+        success.setData(data);
+        return success;
+    }
+
     public static ApiResponse<String> fail() {
         ApiResponse<String> fail = new ApiResponse<>();
         fail.setCode(500);
