@@ -20,6 +20,6 @@ export class AntidoteAddComponent {
   }
 
   private gotoList() {
-    this.router.navigate(['/antidoteList']);
+    this.router.navigate(['/angular/antidoteList']);
   }
 }

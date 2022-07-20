@@ -2,6 +2,7 @@ package com.yrx.simple.life.eden.application.service.impl;
 
 import com.yrx.simple.life.eden.application.assembler.AntidoteAssembler;
 import com.yrx.simple.life.eden.application.dto.ApiResponse;
+import com.yrx.simple.life.eden.application.dto.HttpResponse;
 import com.yrx.simple.life.eden.application.dto.req.AntidoteListReq;
 import com.yrx.simple.life.eden.application.dto.req.AntidoteReq;
 import com.yrx.simple.life.eden.application.dto.rsp.AntidoteRsp;
@@ -22,16 +23,16 @@ public class AntidoteServiceImpl implements AntidoteService {
     private AntidoteRepository antidoteRepository;
 
     @Override
-    public ApiResponse<String> add(AntidoteReq req) {
+    public HttpResponse<String> add(AntidoteReq req) {
         Antidote antidote = antidoteAssembler.convertReqToEntity(req);
         antidoteRepository.save(antidote);
-        return ApiResponse.success();
+        return HttpResponse.success(ApiResponse.success());
     }
 
     @Override
-    public ApiResponse<List<AntidoteRsp>> list(AntidoteListReq req) {
+    public HttpResponse<List<AntidoteRsp>> list(AntidoteListReq req) {
         AntidoteQuery query = antidoteAssembler.convertReqToEntity(req);
         List<Antidote> list = antidoteRepository.list(query);
-        return ApiResponse.success(antidoteAssembler.convertEntitiesToRsp(list));
+        return HttpResponse.success(ApiResponse.success(antidoteAssembler.convertEntitiesToRsp(list)));
     }
 }

@@ -1,8 +1,12 @@
 package com.yrx.simple.life.eden.application.dto;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
+@Getter
+@Setter
+@ToString
 public class ApiResponse<T> {
     private Integer code;
     private String msg;
@@ -27,6 +31,13 @@ public class ApiResponse<T> {
         ApiResponse<String> fail = new ApiResponse<>();
         fail.setCode(500);
         fail.setMsg("失败");
+        return fail;
+    }
+
+    public static ApiResponse<String> fail(Integer code, String msg) {
+        ApiResponse<String> fail = new ApiResponse<>();
+        fail.setCode(code);
+        fail.setMsg(msg);
         return fail;
     }
 }

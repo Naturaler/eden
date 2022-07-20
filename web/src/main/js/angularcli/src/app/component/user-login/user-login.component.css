@@ -1,0 +1,14 @@
+.container {
+  width: 50%;
+}
+
+.sub-container {
+  position: absolute;
+  top: 30%;
+  width: 50%;
+}
+
+.row {
+  background-color: #f8f9fa;
+  padding-bottom: 10px;
+}

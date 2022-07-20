@@ -8,12 +8,15 @@ import {AntidoteAddComponent} from './component/antidote-add/antidote-add.compon
 import {AntidoteService} from "./service/antidote.service";
 import {HttpClientModule} from "@angular/common/http";
 import { AntidoteListComponent } from './component/antidote-list/antidote-list.component';
+import { UserLoginComponent } from './component/user-login/user-login.component';
+import {UserLoginService} from "./service/user-login.service";
 
 @NgModule({
   declarations: [
     AppComponent,
     AntidoteAddComponent,
-    AntidoteListComponent
+    AntidoteListComponent,
+    UserLoginComponent
   ],
   imports: [
     BrowserModule,
@@ -21,7 +24,7 @@ import { AntidoteListComponent } from './component/antidote-list/antidote-list.c
     HttpClientModule,
     FormsModule
   ],
-  providers: [AntidoteService],
+  providers: [AntidoteService, UserLoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

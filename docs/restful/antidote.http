@@ -7,3 +7,14 @@ Content-Type: application/json
   "val": "123456",
   "remark": "阅后即焚"
 }
+
+###
+POST http://localhost:18512/eden/login
+Content-Type: application/json
+
+{
+  "title": "测试用",
+  "key": "centos",
+  "val": "123456",
+  "remark": "阅后即焚"
+}
