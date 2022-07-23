@@ -5,6 +5,8 @@ import {AntidoteRsp} from "../model/antidote-rsp";
 import {Observable} from "rxjs";
 import {AntidoteListReq} from "../model/antidote-list-req";
 import {HttpResponse} from "../model/http-response";
+import {PageListRsp} from "../model/page-list-rsp";
+import {ApiResponse} from "../model/api-response";
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +24,7 @@ export class AntidoteService {
     return this.http.post<AntidoteAddReq>(this.addUrl, antidoteReq);
   }
 
-  list(antidoteListReq: AntidoteListReq): Observable<HttpResponse<AntidoteRsp[]>> {
-    return this.http.post<HttpResponse<AntidoteRsp[]>>(this.listUrl, antidoteListReq);
+  list(antidoteListReq: AntidoteListReq): Observable<HttpResponse<PageListRsp<AntidoteRsp>>> {
+    return this.http.post<HttpResponse<PageListRsp<AntidoteRsp>>>(this.listUrl, antidoteListReq);
   }
 }

@@ -16,18 +16,6 @@ public class EdenRequestMatcher implements RequestMatcher {
     @Override
     public boolean matches(HttpServletRequest request) {
         log.info("request.getServletPath(): {}", request.getServletPath());
-        if (request.getServletPath().endsWith(pattern)) {
-            return true;
-//            try {
-//                String body = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
-//                if (StringUtils.hasText(body)) {
-//                    return true;
-//                }
-//            } catch (IOException e) {
-//                log.error("获取请求数据异常: {}", e.getMessage());
-//                e.printStackTrace();
-//            }
-        }
-        return false;
+        return request.getServletPath().endsWith(pattern);
     }
 }

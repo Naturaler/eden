@@ -11,7 +11,7 @@ export class UserLoginService {
   private loginUrl: string;
 
   constructor(private http: HttpClient) {
-    this.loginUrl = '/eden/login';
+    this.loginUrl = 'http://localhost:18512/eden/login';
   }
 
   public login(loginReq: UserLoginReq) {

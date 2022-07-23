@@ -18,5 +18,16 @@
     <select id="list" resultType="com.yrx.simple.life.eden.domain.entity.Antidote">
         select *
         from antidote
+        <where>
+            <if test="title != null and title != ''">
+                title = #{title,jdbcType=VARCHAR}
+            </if>
+            <if test="key != null and key != ''">
+                `key` = #{key,jdbcType=VARCHAR}
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark,jdbcType=VARCHAR}
+            </if>
+        </where>
     </select>
 </mapper>

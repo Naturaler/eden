@@ -1,5 +1,25 @@
-<table class="table table-bordered table-striped">
-  <thead class="thead-dark">
+<form>
+  <div class="row g-3">
+    <div class="col-sm">
+      <input type="text" class="form-control" placeholder="Title" aria-label="Title" [(ngModel)]="antidoteListReq.title"
+             name="title">
+    </div>
+    <div class="col-sm">
+      <input type="text" class="form-control" placeholder="Key" aria-label="Key" [(ngModel)]="antidoteListReq.key"
+             name="key">
+    </div>
+    <div class="col-sm">
+      <input type="text" class="form-control" placeholder="Remark" aria-label="Remark"
+             [(ngModel)]="antidoteListReq.remark" name="remark">
+    </div>
+  </div>
+  <div class="d-grid gap-2 d-md-block">
+    <button class="btn btn-outline-primary" type="button" (click)="onSubmit()">查询</button>
+    <button class="btn btn-outline-primary" type="button" (click)="add()">新增</button>
+  </div>
+</form>
+<table class="table table-hover">
+  <thead class="table-light">
   <tr>
     <th scope="col">id</th>
     <th scope="col">title</th>
@@ -9,7 +29,7 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let antidoteRsp of apiResponse.data">
+  <tr *ngFor="let antidoteRsp of apiResponse.data.list">
     <td>{{ antidoteRsp.id }}</td>
     <td>{{ antidoteRsp.title }}</td>
     <td>{{ antidoteRsp.key }}</td>
@@ -18,3 +38,25 @@
   </tr>
   </tbody>
 </table>
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item" [ngClass]="shouPrevious" (click)="previousPage()">
+      <a class="page-link" href="javascript:">Previous</a>
+    </li>
+    <div *ngIf="apiResponse.data.prePage > 0">
+      <li class="page-item"><a class="page-link" href="javascript:" (click)="jump(apiResponse.data.prePage)">{{ apiResponse.data.prePage }}</a>
+      </li>
+    </div>
+    <li class="page-item active" aria-current="page">
+      <a class="page-link" href="javascript:" (click)="jump(apiResponse.data.pageNum)">{{ apiResponse.data.pageNum }}</a>
+    </li>
+    <div *ngIf="apiResponse.data.nextPage > 0">
+      <li class="page-item">
+        <a class="page-link" href="javascript:" (click)="jump(apiResponse.data.nextPage)">{{ apiResponse.data.nextPage }}</a>
+      </li>
+    </div>
+    <li class="page-item" [ngClass]="shouNext" (click)="nextPage()">
+      <a class="page-link" href="javascript:">Next</a>
+    </li>
+  </ul>
+</nav>

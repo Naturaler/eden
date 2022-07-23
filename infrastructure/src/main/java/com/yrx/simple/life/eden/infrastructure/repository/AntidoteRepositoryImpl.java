@@ -1,5 +1,6 @@
 package com.yrx.simple.life.eden.infrastructure.repository;
 
+import com.github.pagehelper.PageHelper;
 import com.yrx.simple.life.eden.domain.dto.query.AntidoteQuery;
 import com.yrx.simple.life.eden.domain.entity.Antidote;
 import com.yrx.simple.life.eden.domain.persistence.AntidoteRepository;
@@ -35,6 +36,7 @@ public class AntidoteRepositoryImpl implements AntidoteRepository {
 
     @Override
     public List<Antidote> list(AntidoteQuery query) {
+        PageHelper.startPage(query.getPageNum(), query.getPageSize());
         return antidotePoExtMapper.list(query);
     }
 }

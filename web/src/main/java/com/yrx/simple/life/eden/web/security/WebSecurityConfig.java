@@ -10,7 +10,10 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.CorsUtils;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import javax.annotation.Resource;
 
@@ -35,7 +38,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/", "/login", "/*.html","/*.js","/*.css").permitAll()
 //                .antMatchers("/antidote/list").hasRole("admin")
-                .anyRequest().authenticated() // 联调时，需关闭鉴权校验
+//                .anyRequest().authenticated() // 联调时，需关闭鉴权校验
 //                .and()
 //                .formLogin()
 //                .defaultSuccessUrl("/antidote/list")
@@ -48,8 +51,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         ;
 
         // 跨域时，需开启以下配置
-//        http.cors().disable();
-//        http.csrf().disable();
+        http.csrf().disable();
         http.exceptionHandling().authenticationEntryPoint(new LoginEntryPoint());
 
         http.addFilterBefore(processingFilter(authenticationManager()), UsernamePasswordAuthenticationFilter.class);
@@ -57,17 +59,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     // 跨域时，需开启以下配置
-//    @Bean
-//    CorsConfigurationSource corsConfigurationSource() {
-//        CorsConfiguration configuration = new CorsConfiguration();
-//        configuration.addAllowedOrigin("*");
-//        configuration.addAllowedMethod("*");
-//        configuration.addAllowedHeader("*");
-////        configuration.setAllowCredentials(true);
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/**", configuration);
-//        return source;
-//    }
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.addAllowedOrigin("*");
+        configuration.addAllowedMethod("*");
+        configuration.addAllowedHeader("*");
+//        configuration.setAllowCredentials(true);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
 
 //    @Bean
 //    @Override

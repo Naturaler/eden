@@ -1,8 +1,12 @@
 package com.yrx.simple.life.eden.application.dto.req;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
-public class AntidoteListReq {
-
+@Getter
+@Setter
+public class AntidoteListReq extends BasePageReq {
+    private String title;
+    private String key;
+    private String remark;
 }
