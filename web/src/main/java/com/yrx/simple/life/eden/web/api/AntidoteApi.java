@@ -4,6 +4,7 @@ import com.github.pagehelper.PageInfo;
 import com.yrx.simple.life.eden.application.dto.HttpResponse;
 import com.yrx.simple.life.eden.application.dto.req.AntidoteListReq;
 import com.yrx.simple.life.eden.application.dto.req.AntidoteReq;
+import com.yrx.simple.life.eden.application.dto.rsp.AntidoteRsp;
 import com.yrx.simple.life.eden.application.service.AntidoteService;
 import com.yrx.simple.life.eden.domain.entity.Antidote;
 import lombok.extern.slf4j.Slf4j;
@@ -33,5 +34,10 @@ public class AntidoteApi {
     public HttpResponse<PageInfo<Antidote>> list(@RequestBody AntidoteListReq req) {
         log.info("receive antidote list req: {}", req);
         return antidoteService.list(req);
+    }
+
+    @GetMapping("/get")
+    public HttpResponse<AntidoteRsp> get(@RequestParam Long id) {
+        return antidoteService.get(id);
     }
 }

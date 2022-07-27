@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {UserLoginReq} from "../../model/user-login-req";
 import {ActivatedRoute, Router} from "@angular/router";
 import {UserLoginService} from "../../service/user-login.service";
+import {CryptoService} from "../../service/crypto.service";
 
 @Component({
   selector: 'app-user-login',
@@ -11,7 +12,8 @@ import {UserLoginService} from "../../service/user-login.service";
 export class UserLoginComponent {
   loginReq: UserLoginReq;
 
-  constructor(private route: ActivatedRoute, private router: Router, private loginService: UserLoginService) {
+  constructor(private route: ActivatedRoute, private router: Router, private loginService: UserLoginService,
+              private cryptoService: CryptoService) {
     this.loginReq = new UserLoginReq();
   }
 

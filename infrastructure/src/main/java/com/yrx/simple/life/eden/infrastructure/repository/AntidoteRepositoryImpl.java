@@ -39,4 +39,10 @@ public class AntidoteRepositoryImpl implements AntidoteRepository {
         PageHelper.startPage(query.getPageNum(), query.getPageSize());
         return antidotePoExtMapper.list(query);
     }
+
+    @Override
+    public Antidote get(Long id) {
+        AntidotePo antidotePo = antidotePoMapper.selectByPrimaryKey(id);
+        return antidoteConverter.convertPoToEntity(antidotePo);
+    }
 }

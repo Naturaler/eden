@@ -13,4 +13,6 @@ public interface AntidoteConverter {
             @Mapping(target = "updateTime", expression = "java(new java.util.Date())")
     })
     AntidotePo convertEntityToPo(Antidote antidote);
+
+    Antidote convertPoToEntity(AntidotePo antidotePo);
 }

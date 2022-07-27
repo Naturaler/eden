@@ -12,12 +12,14 @@ import {ApiResponse} from "../model/api-response";
   providedIn: 'root'
 })
 export class AntidoteService {
-  private addUrl: string;
-  private listUrl: string;
+  private addUrl!: string;
+  private listUrl!: string;
+  private getUrl!: string;
 
   constructor(private http: HttpClient) {
     this.addUrl = 'http://localhost:18512/eden/antidote/add';
     this.listUrl = 'http://localhost:18512/eden/antidote/list';
+    this.getUrl = 'http://localhost:18512/eden/antidote/get?id=';
   }
 
   add(antidoteReq: AntidoteAddReq) {
@@ -26,5 +28,9 @@ export class AntidoteService {
 
   list(antidoteListReq: AntidoteListReq): Observable<HttpResponse<PageListRsp<AntidoteRsp>>> {
     return this.http.post<HttpResponse<PageListRsp<AntidoteRsp>>>(this.listUrl, antidoteListReq);
+  }
+
+  get(id: bigint) {
+    return this.http.get<HttpResponse<AntidoteRsp>>(this.getUrl + id);
   }
 }

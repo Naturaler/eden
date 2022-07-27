@@ -20,13 +20,13 @@
         from antidote
         <where>
             <if test="title != null and title != ''">
-                title = #{title,jdbcType=VARCHAR}
+                and title like concat(#{title,jdbcType=VARCHAR}, '%')
             </if>
             <if test="key != null and key != ''">
-                `key` = #{key,jdbcType=VARCHAR}
+                and `key` like concat(#{key,jdbcType=VARCHAR}, '%')
             </if>
             <if test="remark != null and remark != ''">
-                remark = #{remark,jdbcType=VARCHAR}
+                and remark like concat(#{remark,jdbcType=VARCHAR}, '%')
             </if>
         </where>
     </select>

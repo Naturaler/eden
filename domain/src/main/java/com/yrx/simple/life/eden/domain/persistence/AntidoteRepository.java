@@ -9,4 +9,6 @@ public interface AntidoteRepository {
     Antidote save(Antidote item);
 
     List<Antidote> list(AntidoteQuery query);
+
+    Antidote get(Long id);
 }

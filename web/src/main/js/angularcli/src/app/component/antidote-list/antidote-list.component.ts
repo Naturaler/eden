@@ -7,6 +7,7 @@ import {Router} from "@angular/router";
 import {HttpResponse} from "../../model/http-response";
 import {AntidoteAddReq} from "../../model/antidote-add-req";
 import {PageListRsp} from "../../model/page-list-rsp";
+import {CryptoService} from "../../service/crypto.service";
 
 @Component({
   selector: 'app-antidote-list',
@@ -20,14 +21,18 @@ export class AntidoteListComponent implements OnInit {
   pageNum!: number;
   shouPrevious!: string;
   shouNext!: string;
+  singleAntidoteRsp!: AntidoteRsp;
+  decryptVal!: string;
 
-  constructor(private router: Router, private antidoteService: AntidoteService) {
+  constructor(private router: Router, private antidoteService: AntidoteService, private cryptoService: CryptoService) {
     this.pageNum = 1;
     this.antidoteListReq = new AntidoteListReq();
     this.antidoteListReq.pageSize = 10;
     this.antidoteListReq.pageNum = this.pageNum;
     this.shouPrevious = 'enabled';
     this.shouNext = 'enabled';
+    this.singleAntidoteRsp = new AntidoteRsp();
+    this.decryptVal = '';
   }
 
   ngOnInit(): void {
@@ -90,5 +95,12 @@ export class AntidoteListComponent implements OnInit {
     this.pageNum = pageNum;
     this.antidoteListReq.pageNum = this.pageNum;
     this.list();
+  }
+
+  showAntidote(id: bigint) {
+    this.antidoteService.get(id).subscribe(data => {
+      this.singleAntidoteRsp = data.apiResponse.data;
+      this.decryptVal = this.cryptoService.decrypt(this.singleAntidoteRsp.val);
+    })
   }
 }

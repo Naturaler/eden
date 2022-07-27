@@ -6,6 +6,7 @@ import com.yrx.simple.life.eden.application.dto.ApiResponse;
 import com.yrx.simple.life.eden.application.dto.HttpResponse;
 import com.yrx.simple.life.eden.application.dto.req.AntidoteListReq;
 import com.yrx.simple.life.eden.application.dto.req.AntidoteReq;
+import com.yrx.simple.life.eden.application.dto.rsp.AntidoteRsp;
 import com.yrx.simple.life.eden.application.service.AntidoteService;
 import com.yrx.simple.life.eden.domain.dto.query.AntidoteQuery;
 import com.yrx.simple.life.eden.domain.entity.Antidote;
@@ -34,5 +35,14 @@ public class AntidoteServiceImpl implements AntidoteService {
         AntidoteQuery query = antidoteAssembler.convertReqToEntity(req);
         List<Antidote> list = antidoteRepository.list(query);
         return HttpResponse.success(ApiResponse.success(new PageInfo<>(list)));
+    }
+
+    @Override
+    public HttpResponse<AntidoteRsp> get(Long id) {
+        Antidote antidote = antidoteRepository.get(id);
+        // 密码加密
+        antidote.encrypt();
+        AntidoteRsp antidoteRsp = antidoteAssembler.convertEntityToRsp(antidote);
+        return HttpResponse.success(ApiResponse.success(antidoteRsp));
     }
 }
