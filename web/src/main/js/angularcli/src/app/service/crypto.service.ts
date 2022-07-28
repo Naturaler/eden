@@ -10,6 +10,16 @@ export class CryptoService {
     // 参考：https://www.jianshu.com/p/95d8eeb8301f
   }
 
+  encryptWithKey(content: string, key: string): string {
+    const ciphertext = CryptoJS.AES.encrypt(content, CryptoJS.enc.Utf8.parse(key), {
+      mode: CryptoJS.mode.ECB,
+      padding: CryptoJS.pad.Pkcs7
+    }).toString();
+
+    console.log("加密前: " + content + " 加密后: " + ciphertext);
+    return ciphertext;
+  }
+
   encrypt(content: string): string {
     const aseKey = '2022-07-27000000';
     const ciphertext = CryptoJS.AES.encrypt(content, CryptoJS.enc.Utf8.parse(aseKey), {
