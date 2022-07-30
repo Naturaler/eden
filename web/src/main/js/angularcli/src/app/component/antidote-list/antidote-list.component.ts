@@ -40,10 +40,18 @@ export class AntidoteListComponent implements OnInit {
   }
 
   onSubmit() {
+    this.query();
+  }
+
+  query() {
+    // 查询时，重置页码
+    this.pageNum = 1;
+    this.antidoteListReq.pageNum = this.pageNum;
     this.list();
   }
 
   list() {
+    // 执行查询
     this.antidoteService.list(this.antidoteListReq).subscribe(data => {
       console.log("antidote list response: " + data);
       this.httpResponse = data;
