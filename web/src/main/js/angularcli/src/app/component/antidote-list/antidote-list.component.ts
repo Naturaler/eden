@@ -70,11 +70,24 @@ export class AntidoteListComponent implements OnInit {
       } else if (this.httpResponse.httpCode === 403) {
         console.log("http response code: " + this.httpResponse.httpCode);
         this.router.navigate(['/angular/login']);
+        AntidoteListComponent.hideNavbar();
       } else {
         console.log("http response code: " + this.httpResponse.httpCode);
         this.router.navigate(['/angular/login']);
+        AntidoteListComponent.hideNavbar();
       }
     })
+  }
+
+  /**
+   * 页面跳转时，隐藏导航条
+   * @private
+   */
+  private static hideNavbar() {
+    const navbar = document.getElementById('navbarSupportedContent');
+    if (navbar != null) {
+      navbar.className = ' navbar-collapse collapse';
+    }
   }
 
   add() {

@@ -3,7 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  httpHost: 'http://localhost:18512',
+  encryptionKey: '2022-07-27000000',
+  loginEncryptionKey: 'LoginAntidote188'
 };
 
 /*

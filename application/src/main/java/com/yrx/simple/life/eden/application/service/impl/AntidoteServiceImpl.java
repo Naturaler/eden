@@ -41,7 +41,7 @@ public class AntidoteServiceImpl implements AntidoteService {
     public HttpResponse<AntidoteRsp> get(Long id) {
         Antidote antidote = antidoteRepository.get(id);
         // 密码加密
-        antidote.encrypt();
+//        antidote.encrypt();
         AntidoteRsp antidoteRsp = antidoteAssembler.convertEntityToRsp(antidote);
         return HttpResponse.success(ApiResponse.success(antidoteRsp));
     }

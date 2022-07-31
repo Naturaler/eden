@@ -6,20 +6,21 @@ import {Observable} from "rxjs";
 import {AntidoteListReq} from "../model/antidote-list-req";
 import {HttpResponse} from "../model/http-response";
 import {PageListRsp} from "../model/page-list-rsp";
-import {ApiResponse} from "../model/api-response";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AntidoteService {
+  httpHost = environment.httpHost;
   private addUrl!: string;
   private listUrl!: string;
   private getUrl!: string;
 
   constructor(private http: HttpClient) {
-    this.addUrl = 'http://localhost:18512/eden/antidote/add';
-    this.listUrl = 'http://localhost:18512/eden/antidote/list';
-    this.getUrl = 'http://localhost:18512/eden/antidote/get?id=';
+    this.addUrl = this.httpHost + '/eden/antidote/add';
+    this.listUrl = this.httpHost + '/eden/antidote/list';
+    this.getUrl = this.httpHost + '/eden/antidote/get?id=';
   }
 
   add(antidoteReq: AntidoteAddReq) {

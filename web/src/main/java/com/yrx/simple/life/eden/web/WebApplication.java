@@ -9,5 +9,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class WebApplication {
     public static void main(String[] args) {
         SpringApplication.run(WebApplication.class, args);
+        log.info("你真是个大帅逼！");
     }
 }
