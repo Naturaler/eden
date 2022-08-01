@@ -8,6 +8,7 @@ import com.yrx.simple.life.eden.application.dto.rsp.AntidoteRsp;
 import com.yrx.simple.life.eden.application.service.AntidoteService;
 import com.yrx.simple.life.eden.domain.entity.Antidote;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -25,7 +26,7 @@ public class AntidoteApi {
     }
 
     @PostMapping("add")
-    public HttpResponse<String> add(@RequestBody AntidoteReq req) {
+    public HttpResponse<String> add(@Validated @RequestBody AntidoteReq req) {
         log.info("receive antidote add req: {}", req);
         return antidoteService.add(req);
     }
@@ -39,5 +40,10 @@ public class AntidoteApi {
     @GetMapping("/get")
     public HttpResponse<AntidoteRsp> get(@RequestParam Long id) {
         return antidoteService.get(id);
+    }
+
+    @GetMapping("/delete")
+    public HttpResponse<Antidote> delete(@RequestParam Long id) {
+        return HttpResponse.success(antidoteService.delete(id));
     }
 }

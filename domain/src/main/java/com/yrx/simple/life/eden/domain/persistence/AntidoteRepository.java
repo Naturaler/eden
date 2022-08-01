@@ -11,4 +11,6 @@ public interface AntidoteRepository {
     List<Antidote> list(AntidoteQuery query);
 
     Antidote get(Long id);
+
+    Antidote remove(Long id);
 }

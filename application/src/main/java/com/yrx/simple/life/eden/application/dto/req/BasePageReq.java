@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public abstract class BasePageReq {
-    private Integer pageNum;
-    private Integer pageSize;
+    private Integer pageNum = 1;
+    private Integer pageSize = 10;
 
 }

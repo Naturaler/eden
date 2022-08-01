@@ -45,4 +45,9 @@ public class AntidoteServiceImpl implements AntidoteService {
         AntidoteRsp antidoteRsp = antidoteAssembler.convertEntityToRsp(antidote);
         return HttpResponse.success(ApiResponse.success(antidoteRsp));
     }
+
+    @Override
+    public ApiResponse<Antidote> delete(Long id) {
+        return ApiResponse.success(antidoteRepository.remove(id));
+    }
 }

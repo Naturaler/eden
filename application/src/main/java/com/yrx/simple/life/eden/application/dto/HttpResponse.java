@@ -33,4 +33,11 @@ public class HttpResponse<T> {
         fail.setHttpMsg("无访问权限");
         return fail;
     }
+
+    public static HttpResponse<String> invalidArguments(String msg) {
+        HttpResponse<String> fail = new HttpResponse<>();
+        fail.setHttpCode(400);
+        fail.setHttpMsg(msg);
+        return fail;
+    }
 }

@@ -45,4 +45,11 @@ public class AntidoteRepositoryImpl implements AntidoteRepository {
         AntidotePo antidotePo = antidotePoMapper.selectByPrimaryKey(id);
         return antidoteConverter.convertPoToEntity(antidotePo);
     }
+
+    @Override
+    public Antidote remove(Long id) {
+        AntidotePo po = antidotePoMapper.selectByPrimaryKey(id);
+        antidotePoMapper.deleteByPrimaryKey(id);
+        return antidoteConverter.convertPoToEntity(po);
+    }
 }

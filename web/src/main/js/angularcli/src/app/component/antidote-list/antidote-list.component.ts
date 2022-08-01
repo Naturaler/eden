@@ -124,4 +124,8 @@ export class AntidoteListComponent implements OnInit {
       this.decryptVal = this.cryptoService.decrypt(this.singleAntidoteRsp.val);
     })
   }
+
+  remove(id: bigint) {
+    this.antidoteService.remove(id);
+  }
 }

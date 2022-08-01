@@ -16,15 +16,17 @@ export class AntidoteService {
   private addUrl!: string;
   private listUrl!: string;
   private getUrl!: string;
+  private deleteUrl!: string;
 
   constructor(private http: HttpClient) {
     this.addUrl = this.httpHost + '/eden/antidote/add';
     this.listUrl = this.httpHost + '/eden/antidote/list';
     this.getUrl = this.httpHost + '/eden/antidote/get?id=';
+    this.deleteUrl = this.httpHost + '/eden/antidote/delete?id=';
   }
 
-  add(antidoteReq: AntidoteAddReq) {
-    return this.http.post<AntidoteAddReq>(this.addUrl, antidoteReq);
+  add(antidoteReq: AntidoteAddReq): Observable<HttpResponse<AntidoteRsp>> {
+    return this.http.post<HttpResponse<AntidoteRsp>>(this.addUrl, antidoteReq);
   }
 
   list(antidoteListReq: AntidoteListReq): Observable<HttpResponse<PageListRsp<AntidoteRsp>>> {
@@ -32,6 +34,10 @@ export class AntidoteService {
   }
 
   get(id: bigint) {
+    return this.http.get<HttpResponse<AntidoteRsp>>(this.getUrl + id);
+  }
+
+  remove(id: bigint) {
     return this.http.get<HttpResponse<AntidoteRsp>>(this.getUrl + id);
   }
 }
