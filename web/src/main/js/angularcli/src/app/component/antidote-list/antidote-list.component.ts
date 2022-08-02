@@ -53,26 +53,23 @@ export class AntidoteListComponent implements OnInit {
   list() {
     // 执行查询
     this.antidoteService.list(this.antidoteListReq).subscribe(data => {
-      console.log("antidote list response: " + data);
       this.httpResponse = data;
       if (this.httpResponse.httpCode === 200) {
         this.apiResponse = this.httpResponse.apiResponse;
         if (this.apiResponse.data.hasPreviousPage) {
           this.shouPrevious = 'enabled';
-        }else {
+        } else {
           this.shouPrevious = 'disabled';
         }
         if (this.apiResponse.data.hasNextPage) {
           this.shouNext = 'enabled';
-        }else {
+        } else {
           this.shouNext = 'disabled';
         }
       } else if (this.httpResponse.httpCode === 403) {
-        console.log("http response code: " + this.httpResponse.httpCode);
         this.router.navigate(['/angular/login']);
         AntidoteListComponent.hideNavbar();
       } else {
-        console.log("http response code: " + this.httpResponse.httpCode);
         this.router.navigate(['/angular/login']);
         AntidoteListComponent.hideNavbar();
       }
@@ -126,6 +123,6 @@ export class AntidoteListComponent implements OnInit {
   }
 
   remove(id: bigint) {
-    this.antidoteService.remove(id);
+    this.antidoteService.remove(id).subscribe(data => this.list());
   }
 }

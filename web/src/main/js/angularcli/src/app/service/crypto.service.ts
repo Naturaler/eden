@@ -28,7 +28,6 @@ export class CryptoService {
       padding: CryptoJS.pad.Pkcs7
     }).toString();
 
-    console.log("加密前: " + content + " 加密后: " + ciphertext);
     return ciphertext;
   }
 
@@ -39,7 +38,6 @@ export class CryptoService {
       padding: CryptoJS.pad.Pkcs7
     }).toString(CryptoJS.enc.Utf8);
 
-    console.log('解密前: ' + content + ' 解密后: ' + decrypt);
     return decrypt;
   }
 

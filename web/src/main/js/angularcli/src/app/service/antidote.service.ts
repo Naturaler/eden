@@ -38,6 +38,6 @@ export class AntidoteService {
   }
 
   remove(id: bigint) {
-    return this.http.get<HttpResponse<AntidoteRsp>>(this.getUrl + id);
+    return this.http.get(this.deleteUrl + id);
   }
 }
