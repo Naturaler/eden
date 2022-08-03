@@ -14,12 +14,14 @@ import {environment} from "../../environments/environment";
 export class AntidoteService {
   httpHost = environment.httpHost;
   private addUrl!: string;
+  private editUrl!: string;
   private listUrl!: string;
   private getUrl!: string;
   private deleteUrl!: string;
 
   constructor(private http: HttpClient) {
     this.addUrl = this.httpHost + '/eden/antidote/add';
+    this.editUrl = this.httpHost + '/eden/antidote/edit';
     this.listUrl = this.httpHost + '/eden/antidote/list';
     this.getUrl = this.httpHost + '/eden/antidote/get?id=';
     this.deleteUrl = this.httpHost + '/eden/antidote/delete?id=';
@@ -39,5 +41,9 @@ export class AntidoteService {
 
   remove(id: bigint) {
     return this.http.get(this.deleteUrl + id);
+  }
+
+  edit(antidoteReq: AntidoteAddReq): Observable<HttpResponse<AntidoteRsp>> {
+    return this.http.post<HttpResponse<AntidoteRsp>>(this.editUrl, antidoteReq);
   }
 }

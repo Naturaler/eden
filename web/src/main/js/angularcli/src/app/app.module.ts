@@ -10,13 +10,15 @@ import {HttpClientModule} from "@angular/common/http";
 import { AntidoteListComponent } from './component/antidote-list/antidote-list.component';
 import { UserLoginComponent } from './component/user-login/user-login.component';
 import {UserLoginService} from "./service/user-login.service";
+import { AntidoteEditComponent } from './component/antidote-edit/antidote-edit.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AntidoteAddComponent,
     AntidoteListComponent,
-    UserLoginComponent
+    UserLoginComponent,
+    AntidoteEditComponent
   ],
   imports: [
     BrowserModule,

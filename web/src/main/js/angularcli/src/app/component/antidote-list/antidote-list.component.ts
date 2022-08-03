@@ -125,4 +125,8 @@ export class AntidoteListComponent implements OnInit {
   remove(id: bigint) {
     this.antidoteService.remove(id).subscribe(data => this.list());
   }
+
+  edit(id: bigint) {
+    this.router.navigate(["/angular/antidoteEdit"], {queryParams: {id}});
+  }
 }
