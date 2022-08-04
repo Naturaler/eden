@@ -49,7 +49,8 @@ public class AntidoteRepositoryImpl implements AntidoteRepository {
     @Override
     public Antidote remove(Long id) {
         AntidotePo po = antidotePoMapper.selectByPrimaryKey(id);
-        antidotePoMapper.deleteByPrimaryKey(id);
+        po.setDelFlag(Byte.valueOf("1"));
+        antidotePoMapper.updateByPrimaryKey(po);
         return antidoteConverter.convertPoToEntity(po);
     }
 }

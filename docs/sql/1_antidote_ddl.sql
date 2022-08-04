@@ -8,3 +8,7 @@ create table antidote(
     update_time datetime not null default now() comment '修改时间',
     constraint primary key PK_ANTIDOTE(id)
 );
+
+-- 补充软删除标识
+alter table antidote
+    add del_flag tinyint default 0 not null comment '删除标识：0正常；1删除';

@@ -1,5 +1,6 @@
 package com.yrx.simple.life.eden.application.assembler;
 
+import com.yrx.simple.life.eden.application.dto.req.AntidoteEditReq;
 import com.yrx.simple.life.eden.application.dto.req.AntidoteListReq;
 import com.yrx.simple.life.eden.application.dto.req.AntidoteReq;
 import com.yrx.simple.life.eden.application.dto.rsp.AntidoteRsp;
@@ -17,4 +18,6 @@ public interface AntidoteAssembler {
 
     AntidoteRsp convertEntityToRsp(Antidote antidote);
     List<AntidoteRsp> convertEntitiesToRsp(List<Antidote> list);
+
+    Antidote convertEditReqToEntity(AntidoteEditReq req);
 }

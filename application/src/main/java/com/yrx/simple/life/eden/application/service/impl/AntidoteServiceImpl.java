@@ -4,6 +4,7 @@ import com.github.pagehelper.PageInfo;
 import com.yrx.simple.life.eden.application.assembler.AntidoteAssembler;
 import com.yrx.simple.life.eden.application.dto.ApiResponse;
 import com.yrx.simple.life.eden.application.dto.HttpResponse;
+import com.yrx.simple.life.eden.application.dto.req.AntidoteEditReq;
 import com.yrx.simple.life.eden.application.dto.req.AntidoteListReq;
 import com.yrx.simple.life.eden.application.dto.req.AntidoteReq;
 import com.yrx.simple.life.eden.application.dto.rsp.AntidoteRsp;
@@ -49,5 +50,11 @@ public class AntidoteServiceImpl implements AntidoteService {
     @Override
     public ApiResponse<Antidote> delete(Long id) {
         return ApiResponse.success(antidoteRepository.remove(id));
+    }
+
+    @Override
+    public ApiResponse<Antidote> edit(AntidoteEditReq req) {
+        Antidote antidote = antidoteAssembler.convertEditReqToEntity(req);
+        return ApiResponse.success(antidoteRepository.save(antidote));
     }
 }

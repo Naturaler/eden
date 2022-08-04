@@ -3,6 +3,7 @@ package com.yrx.simple.life.eden.application.service;
 import com.github.pagehelper.PageInfo;
 import com.yrx.simple.life.eden.application.dto.ApiResponse;
 import com.yrx.simple.life.eden.application.dto.HttpResponse;
+import com.yrx.simple.life.eden.application.dto.req.AntidoteEditReq;
 import com.yrx.simple.life.eden.application.dto.req.AntidoteListReq;
 import com.yrx.simple.life.eden.application.dto.req.AntidoteReq;
 import com.yrx.simple.life.eden.application.dto.rsp.AntidoteRsp;
@@ -16,4 +17,6 @@ public interface AntidoteService {
     HttpResponse<AntidoteRsp> get(Long id);
 
     ApiResponse<Antidote> delete(Long id);
+
+    ApiResponse<Antidote> edit(AntidoteEditReq req);
 }

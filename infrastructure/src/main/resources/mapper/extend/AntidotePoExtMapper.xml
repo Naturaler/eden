@@ -18,16 +18,15 @@
     <select id="list" resultType="com.yrx.simple.life.eden.domain.entity.Antidote">
         select *
         from antidote
-        <where>
-            <if test="title != null and title != ''">
-                and title like concat(#{title,jdbcType=VARCHAR}, '%')
-            </if>
-            <if test="key != null and key != ''">
-                and `key` like concat(#{key,jdbcType=VARCHAR}, '%')
-            </if>
-            <if test="remark != null and remark != ''">
-                and remark like concat(#{remark,jdbcType=VARCHAR}, '%')
-            </if>
-        </where>
+        where del_flag = 0
+        <if test="title != null and title != ''">
+            and title like concat(#{title,jdbcType=VARCHAR}, '%')
+        </if>
+        <if test="key != null and key != ''">
+            and `key` like concat(#{key,jdbcType=VARCHAR}, '%')
+        </if>
+        <if test="remark != null and remark != ''">
+            and remark like concat(#{remark,jdbcType=VARCHAR}, '%')
+        </if>
     </select>
 </mapper>

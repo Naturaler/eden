@@ -4,10 +4,13 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
-public class AntidoteReq {
+public class AntidoteEditReq {
+    @NotNull(message = "ID不能为空")
+    private Long id;
     @NotBlank(message = "标题不能为空")
     private String title;
     @NotBlank(message = "关键字不能为空")

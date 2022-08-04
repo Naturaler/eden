@@ -2,6 +2,7 @@ package com.yrx.simple.life.eden.web.api;
 
 import com.github.pagehelper.PageInfo;
 import com.yrx.simple.life.eden.application.dto.HttpResponse;
+import com.yrx.simple.life.eden.application.dto.req.AntidoteEditReq;
 import com.yrx.simple.life.eden.application.dto.req.AntidoteListReq;
 import com.yrx.simple.life.eden.application.dto.req.AntidoteReq;
 import com.yrx.simple.life.eden.application.dto.rsp.AntidoteRsp;
@@ -27,13 +28,16 @@ public class AntidoteApi {
 
     @PostMapping("add")
     public HttpResponse<String> add(@Validated @RequestBody AntidoteReq req) {
-        log.info("receive antidote add req: {}", req);
         return antidoteService.add(req);
+    }
+
+    @PostMapping("edit")
+    public HttpResponse<Antidote> edit(@Validated @RequestBody AntidoteEditReq req) {
+        return HttpResponse.success(antidoteService.edit(req));
     }
 
     @PostMapping("list")
     public HttpResponse<PageInfo<Antidote>> list(@RequestBody AntidoteListReq req) {
-        log.info("receive antidote list req: {}", req);
         return antidoteService.list(req);
     }
 
