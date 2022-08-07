@@ -38,7 +38,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/", "/login", "/*.html","/*.js","/*.css").permitAll()
 //                .antMatchers("/antidote/list").hasRole("admin")
-//                .anyRequest().authenticated() // 联调时，需关闭鉴权校验
+                .anyRequest().authenticated() // 联调时，需关闭鉴权校验
 //                .and()
 //                .formLogin()
 //                .defaultSuccessUrl("/antidote/list")
