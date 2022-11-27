@@ -1,8 +1,8 @@
 package com.yrx.simple.life.eden.application.assembler;
 
+import com.yrx.simple.life.eden.application.dto.req.AntidoteAddReq;
 import com.yrx.simple.life.eden.application.dto.req.AntidoteEditReq;
 import com.yrx.simple.life.eden.application.dto.req.AntidoteListReq;
-import com.yrx.simple.life.eden.application.dto.req.AntidoteReq;
 import com.yrx.simple.life.eden.application.dto.rsp.AntidoteRsp;
 import com.yrx.simple.life.eden.domain.dto.query.AntidoteQuery;
 import com.yrx.simple.life.eden.domain.entity.Antidote;
@@ -12,7 +12,7 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface AntidoteAssembler {
-    Antidote convertReqToEntity(AntidoteReq req);
+    Antidote convertReqToEntity(AntidoteAddReq req);
 
     AntidoteQuery convertReqToEntity(AntidoteListReq req);
 

@@ -4,9 +4,9 @@ import com.github.pagehelper.PageInfo;
 import com.yrx.simple.life.eden.application.assembler.AntidoteAssembler;
 import com.yrx.simple.life.eden.application.dto.ApiResponse;
 import com.yrx.simple.life.eden.application.dto.HttpResponse;
+import com.yrx.simple.life.eden.application.dto.req.AntidoteAddReq;
 import com.yrx.simple.life.eden.application.dto.req.AntidoteEditReq;
 import com.yrx.simple.life.eden.application.dto.req.AntidoteListReq;
-import com.yrx.simple.life.eden.application.dto.req.AntidoteReq;
 import com.yrx.simple.life.eden.application.dto.rsp.AntidoteRsp;
 import com.yrx.simple.life.eden.application.service.AntidoteService;
 import com.yrx.simple.life.eden.domain.dto.query.AntidoteQuery;
@@ -25,7 +25,7 @@ public class AntidoteServiceImpl implements AntidoteService {
     private AntidoteRepository antidoteRepository;
 
     @Override
-    public HttpResponse<String> add(AntidoteReq req) {
+    public HttpResponse<String> add(AntidoteAddReq req) {
         Antidote antidote = antidoteAssembler.convertReqToEntity(req);
         antidoteRepository.save(antidote);
         return HttpResponse.success(ApiResponse.success());

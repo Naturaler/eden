@@ -1,0 +1,46 @@
+<nav class="navbar navbar-expand-lg bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">小日子</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">首页</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/angular/note">随笔</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/angular/antidoteList">解药</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/angular/antidoteList">还神丹</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            日志
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">工作日志</a></li>
+            <li><a class="dropdown-item" href="#">项目日志</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">其他日志</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled">Disabled</a>
+        </li>
+      </ul>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
+<router-outlet>
+<app-antidote-list></app-antidote-list>
+</router-outlet>
