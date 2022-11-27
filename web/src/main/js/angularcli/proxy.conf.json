@@ -1,0 +1,6 @@
+{
+  "/eden": {
+    "target": "http://localhost:18512",
+    "secure": false
+  }
+}

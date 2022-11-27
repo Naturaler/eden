@@ -26,7 +26,7 @@ public class EdenAuthenticationProcessingFilter extends AbstractAuthenticationPr
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
         String reqBody = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
-        log.debug("attemptAuthentication reqBody: {}", reqBody);
+        log.debug("收到鉴权数据 reqBody: {}", reqBody);
         if (StringUtils.hasText(reqBody)) {
             Gson gson = new Gson();
             AuthenticationReq authenticationReq = gson.fromJson(reqBody, AuthenticationReq.class);

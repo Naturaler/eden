@@ -23,10 +23,12 @@ public class EdenAuthenticationProvider implements AuthenticationProvider {
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         if (authentication instanceof EdenAuthenticationToken) {
             EdenAuthenticationToken edenAuthenticationToken = (EdenAuthenticationToken) authentication;
-            log.info("EdenAuthenticationToken: {}", edenAuthenticationToken);
-            ApiResponse<String> authResult = authenticationService.authenticate(edenAuthenticationToken.getPrincipal(), edenAuthenticationToken.getCredentials());
+            log.info("鉴权token: {}", edenAuthenticationToken);
+            ApiResponse<String> authResult = authenticationService.authenticate(edenAuthenticationToken.getPrincipal().toString(),
+                    edenAuthenticationToken.getCredentials().toString());
             if (authResult.getCode().equals(200)) {
-                return new EdenAuthenticationToken(Collections.singletonList(new SimpleGrantedAuthority("root")), "10086", "1008611");
+                return new EdenAuthenticationToken(Collections.singletonList(new SimpleGrantedAuthority("root")),
+                        edenAuthenticationToken.getPrincipal().toString(), edenAuthenticationToken.getCredentials().toString());
             }
         }
         throw new BadCredentialsException("鉴权信息不合法");

@@ -5,7 +5,6 @@ import {AntidoteListReq} from "../../model/antidote-list-req";
 import {ApiResponse} from "../../model/api-response";
 import {Router} from "@angular/router";
 import {HttpResponse} from "../../model/http-response";
-import {AntidoteAddReq} from "../../model/antidote-add-req";
 import {PageListRsp} from "../../model/page-list-rsp";
 import {CryptoService} from "../../service/crypto.service";
 
@@ -53,6 +52,7 @@ export class AntidoteListComponent implements OnInit {
   list() {
     // 执行查询
     this.antidoteService.list(this.antidoteListReq).subscribe(data => {
+      console.log("list结果响应: " + data);
       this.httpResponse = data;
       if (this.httpResponse.httpCode === 200) {
         this.apiResponse = this.httpResponse.apiResponse;

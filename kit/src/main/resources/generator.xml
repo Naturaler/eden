@@ -20,7 +20,7 @@
         <javaClientGenerator type="XMLMAPPER" targetPackage="com.yrx.simple.life.eden.infrastructure.mapper" targetProject="infrastructure/src/main/java" />
 
         <!-- 目标表名，并指定别名 -->
-        <table tableName="antidote" domainObjectName="AntidotePo" mapperName="AntidotePoMapper"/>
+        <table tableName="journey" domainObjectName="JourneyPo" mapperName="JourneyPoMapper"/>
 
     </context>
 </generatorConfiguration>

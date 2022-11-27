@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  httpHost: 'http://localhost:18512',
+  httpHost: 'http://localhost:4200',
   encryptionKey: '2022-07-27000000',
   loginEncryptionKey: 'LoginAntidote188'
 };

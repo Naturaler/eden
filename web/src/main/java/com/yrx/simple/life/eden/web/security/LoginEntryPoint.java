@@ -16,11 +16,7 @@ import java.io.PrintWriter;
 public class LoginEntryPoint implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-        log.info("request.getServletPath(): {}", request.getServletPath());
-//        response.sendRedirect("http://localhost:4200/angular/login");
-//        response.sendRedirect("http://localhost:18512/eden/custom_login.html");
-//        response.sendRedirect("/eden/custom_login.html");
-//        response.sendRedirect("http://localhost:18512/eden/custom_login.html");
+        log.info("响应登录认证节点 request.getServletPath(): {}", request.getServletPath());
         response.setContentType("application/json");
         PrintWriter writer = response.getWriter();
         HttpResponse<String> rsp = new HttpResponse<>();

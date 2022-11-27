@@ -10,24 +10,18 @@ import org.springframework.util.StringUtils;
 @Service
 @Slf4j
 public class AuthenticationServiceImpl implements AuthenticationService {
-    @Override
-    public ApiResponse<String> authenticate(Object phone, Object password) {
-        log.info("鉴权信息-obj：phone: {}, password: {}", phone, password);
-        if (phone == null || password == null) {
-            return ApiResponse.fail();
-        }
-        return authenticate(phone.toString(), password.toString());
-    }
+    private final String ANTIDOTE_KEY = "LoginAntidote188";
+    private final String PASSWORD_PREFIX = "Antidote";
 
     @Override
     public ApiResponse<String> authenticate(String phone, String password) {
-        log.info("鉴权信息-string：phone: {}, password: {}", phone, password);
+        log.info("开始鉴权 鉴权信息：phone: {}, password: {}", phone, password);
         if (!StringUtils.hasText(phone) || !StringUtils.hasText(password)) {
             return ApiResponse.fail();
         }
         String decrypt;
         try {
-            decrypt = AesUtil.decrypt("LoginAntidote188", password);
+            decrypt = AesUtil.decrypt(ANTIDOTE_KEY, password);
         } catch (Exception e) {
             log.error("登录校验[" + phone + " , " + password + "]密码解密异常！", e);
             return ApiResponse.fail(403, "权限校验不通过");
@@ -37,10 +31,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         if (items.length != 3) {
             return ApiResponse.fail(403, "权限校验不通过");
         }
-        if (!items[0].equals("Antidote")) {
+        if (!items[0].equals(PASSWORD_PREFIX)) {
             return ApiResponse.fail(403, "权限校验不通过");
         }
         long loginTimestamp = Long.parseLong(items[2]);
+        // 密码有效期：2分钟
         if (System.currentTimeMillis() - loginTimestamp > (2 * 60 * 1000L)) {
             return ApiResponse.fail(403, "权限校验不通过");
         }

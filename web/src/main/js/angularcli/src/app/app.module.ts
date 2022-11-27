@@ -11,6 +11,7 @@ import { AntidoteListComponent } from './component/antidote-list/antidote-list.c
 import { UserLoginComponent } from './component/user-login/user-login.component';
 import {UserLoginService} from "./service/user-login.service";
 import { AntidoteEditComponent } from './component/antidote-edit/antidote-edit.component';
+import { JourneyListComponent } from './component/journey/journey-list/journey-list.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { AntidoteEditComponent } from './component/antidote-edit/antidote-edit.c
     AntidoteAddComponent,
     AntidoteListComponent,
     UserLoginComponent,
-    AntidoteEditComponent
+    AntidoteEditComponent,
+    JourneyListComponent
   ],
   imports: [
     BrowserModule,
