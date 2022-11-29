@@ -45,8 +45,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .and().sessionManagement().enableSessionUrlRewriting(true)
         ;
         // 即使用了angular cli代理，也还是要禁用csrf，否则本地联调会报403异常
-        http.csrf().disable();
-        http.exceptionHandling().authenticationEntryPoint(new LoginEntryPoint());
+//        http.csrf().disable();
+//        http.exceptionHandling().authenticationEntryPoint(new LoginEntryPoint());
 
         http.addFilterBefore(processingFilter(authenticationManager()), UsernamePasswordAuthenticationFilter.class);
 

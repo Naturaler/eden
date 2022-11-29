@@ -44,3 +44,21 @@
 <router-outlet>
 
 </router-outlet>
+
+<!-- 登录框开始 -->
+<ng-template #loginModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Hi there!</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <p>Hello, World!</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Save</button>
+  </div>
+</ng-template>
+<!-- 登录框结束 -->
+
+<!-- 登录框展示按钮 -->
+<button id="loginModalButton" class="btn btn-lg btn-outline-primary" style="visibility: hidden" (click)="open({content : loginModal})">啦啦啦</button>

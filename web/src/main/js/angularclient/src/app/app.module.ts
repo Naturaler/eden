@@ -8,6 +8,7 @@ import {FormsModule} from "@angular/forms";
 import {AntidoteService} from "./module/antidote/service/antidote.service";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {AuthInterceptor} from "./module/common/global/auth.interceptor";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import {AuthInterceptor} from "./module/common/global/auth.interceptor";
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgbModule
   ],
   providers: [AntidoteService,
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
