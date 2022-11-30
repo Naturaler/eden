@@ -8,3 +8,9 @@
 *.iml
 
 /logs
+
+/node_modules
+package-lock.json
+package.json
+
+web/src/main/js/angularclient/.vscode
