@@ -26,7 +26,9 @@
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#">工作日志</a></li>
             <li><a class="dropdown-item" href="#">项目日志</a></li>
-            <li><hr class="dropdown-divider"></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
             <li><a class="dropdown-item" href="#">其他日志</a></li>
           </ul>
         </li>
@@ -46,19 +48,30 @@
 </router-outlet>
 
 <!-- 登录框开始 -->
-<ng-template #loginModal let-c="close" let-d="dismiss">
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Hi there!</h4>
-    <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+<div class="modal fade" id="loginModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">请登录</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="loginAccount" class="form-label">账号</label>
+            <input type="text" class="form-control" id="loginAccount" name="accountPhone"
+                   [(ngModel)]="loginReq.account">
+          </div>
+          <div class="mb-3">
+            <label for="loginPassword" class="form-label">密码</label>
+            <input type="password" class="form-control" id="loginPassword" name="accountPassword"
+                   [(ngModel)]="loginReq.password">
+          </div>
+          <button type="submit" class="btn btn-primary" (click)="onSubmit()">登录</button>
+        </form>
+      </div>
+    </div>
   </div>
-  <div class="modal-body">
-    <p>Hello, World!</p>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Save</button>
-  </div>
-</ng-template>
+</div>
 <!-- 登录框结束 -->
-
-<!-- 登录框展示按钮 -->
-<button id="loginModalButton" class="btn btn-lg btn-outline-primary" style="visibility: hidden" (click)="open({content : loginModal})">啦啦啦</button>

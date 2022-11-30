@@ -30,7 +30,7 @@ public class EdenAuthenticationProcessingFilter extends AbstractAuthenticationPr
         if (StringUtils.hasText(reqBody)) {
             Gson gson = new Gson();
             AuthenticationReq authenticationReq = gson.fromJson(reqBody, AuthenticationReq.class);
-            return getAuthenticationManager().authenticate(new EdenAuthenticationToken(authenticationReq.getPhone(), authenticationReq.getPassword()));
+            return getAuthenticationManager().authenticate(new EdenAuthenticationToken(authenticationReq.getAccount(), authenticationReq.getPassword()));
         }
         throw new BadCredentialsException("鉴权数据不合法");
     }

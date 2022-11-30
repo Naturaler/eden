@@ -2,12 +2,17 @@ import {Injectable} from '@angular/core';
 import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {Observable, tap} from 'rxjs';
 import {Router} from "@angular/router";
-import {Element} from "@angular/compiler";
+import {Modal} from "bootstrap";
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
+  loginModal!: Modal;
 
   constructor(private router: Router) {
+    const target = document.getElementById('loginModal');
+    if (target != null) {
+      this.loginModal = new Modal(target);
+    }
   }
 
   intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
@@ -16,14 +21,11 @@ export class AuthInterceptor implements HttpInterceptor {
       (err: any) => {
         if (err instanceof HttpErrorResponse) {
           if (err.status === 401 || err.status === 403 || err.status === 0) {
-            console.log("捕获了403异常！=====" + err);
-            // 展示登录框
-            const loginModalButton = document.getElementById("loginModalButton");
-            if (loginModalButton != null) {
-              loginModalButton.click();
-            }
+            this.loginModal.show();
           }
         }
+      }, () => {
+        this.loginModal.hide();
       }));
   }
 }
