@@ -2,11 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {Antidote} from "../../model/antidote";
 import {AntidoteService} from "../../service/antidote.service";
 import {AntidoteListReq} from "../../model/antidote-list-req";
-import {ApiResponse} from "../../../common/model/api-response";
 import {Router} from "@angular/router";
-import {HttpResponse} from "../../../common/model/http-response";
-import {PageListRsp} from "../../../common/model/page-list-rsp";
 import {CryptoService} from "../../../common/service/crypto.service";
+import {AntidoteSearchParam} from "../../model/antidote-search-param";
+import {SubmitType} from "../../../common/model/submit-type";
 
 @Component({
   selector: 'app-antidote-list',
@@ -14,90 +13,104 @@ import {CryptoService} from "../../../common/service/crypto.service";
   styleUrls: ['./antidote-list.component.css']
 })
 export class AntidoteListComponent implements OnInit {
-  httpResponse!: HttpResponse<PageListRsp<Antidote>>;
-  apiResponse!: ApiResponse<PageListRsp<Antidote>>;
-  antidoteListReq!: AntidoteListReq;
-  pageNum!: number;
+  searchParam!: AntidoteSearchParam;
   shouPrevious!: string;
   shouNext!: string;
-  singleAntidoteRsp!: Antidote;
-  decryptVal!: string;
+  modalPrefix!: string;
+  antidote!: Antidote;
+  antidoteList!: Antidote[];
+  prePageNum!: number;
+  pageNum!: number;
+  nextPageNum!: number;
+  pageSize!: number;
+  pages!: number;
+  total!: number;
+  submitType!: SubmitType;
+  disabled!: boolean;
 
   constructor(private router: Router, private antidoteService: AntidoteService, private cryptoService: CryptoService) {
+    this.searchParam = new AntidoteSearchParam();
+    this.antidote = new Antidote();
+    this.pageSize = 10;
+    this.prePageNum = 0;
     this.pageNum = 1;
-    this.antidoteListReq = new AntidoteListReq();
-    this.antidoteListReq.pageSize = 10;
-    this.antidoteListReq.pageNum = this.pageNum;
-    this.shouPrevious = 'enabled';
-    this.shouNext = 'enabled';
-    this.singleAntidoteRsp = new Antidote();
-    this.decryptVal = '';
+    this.nextPageNum = 0;
+    this.total = 0;
+    this.pages = 0;
+    this.shouPrevious = 'disabled';
+    this.shouNext = 'disabled';
+    this.modalPrefix = '';
+    this.submitType = SubmitType.LIST;
+    this.disabled = false;
   }
 
   ngOnInit(): void {
-    this.list();
-  }
-
-  onSubmit() {
-    this.query();
+    this.list(this.emptyListReq());
   }
 
   query() {
+    const req = this.buildSearchReq();
     // 查询时，重置页码
-    this.pageNum = 1;
-    this.antidoteListReq.pageNum = this.pageNum;
-    this.list();
+    req.pageNum = 1;
+    this.list(req);
   }
 
-  list() {
+  list(req: AntidoteListReq) {
     // 执行查询
-    this.antidoteService.list(this.antidoteListReq).subscribe(data => {
-      console.log("list结果响应: " + data);
-      this.httpResponse = data;
-      if (this.httpResponse.httpCode === 200) {
-        this.apiResponse = this.httpResponse.apiResponse;
-        if (this.apiResponse.data.hasPreviousPage) {
-          this.shouPrevious = 'enabled';
-        } else {
-          this.shouPrevious = 'disabled';
-        }
-        if (this.apiResponse.data.hasNextPage) {
-          this.shouNext = 'enabled';
-        } else {
-          this.shouNext = 'disabled';
-        }
-      } else if (this.httpResponse.httpCode === 403) {
-        this.router.navigate(['/angular/login']);
-        AntidoteListComponent.hideNavbar();
-      } else {
-        this.router.navigate(['/angular/login']);
-        AntidoteListComponent.hideNavbar();
+    this.antidoteService.list(req).subscribe(data => {
+      if (data.httpCode === 200) {
+        const apiResponseData = data.apiResponse.data;
+        this.antidoteList = apiResponseData.list;
+        this.prePageNum = apiResponseData.prePage;
+        this.pageNum = apiResponseData.pageNum;
+        this.nextPageNum = apiResponseData.nextPage;
+        this.pageSize = apiResponseData.pageSize;
+        this.pages = apiResponseData.pages;
+        this.total = apiResponseData.total;
+        this.shouPrevious = apiResponseData.hasPreviousPage ? 'enabled' : 'disabled';
+        this.shouNext = apiResponseData.hasNextPage ? 'enabled' : 'disabled';
       }
     })
   }
 
-  /**
-   * 页面跳转时，隐藏导航条
-   * @private
-   */
-  private static hideNavbar() {
-    const navbar = document.getElementById('navbarSupportedContent');
-    if (navbar != null) {
-      navbar.className = ' navbar-collapse collapse';
+  onSubmit() {
+    switch (this.submitType) {
+      case SubmitType.ADD:
+        this.add()
+        break;
+      case SubmitType.UPDATE:
+        this.update();
+        break;
+      case SubmitType.REMOVE:
+        this.remove();
+        break;
+      case SubmitType.GET:
+      case SubmitType.LIST:
+      default:
+        return;
     }
   }
 
   add() {
-    this.router.navigate(['/angular/antidoteAdd']);
+    const req = this.buildAntidoteReq();
+    this.antidoteService.add(req).subscribe(data => this.list(this.emptyListReq()));
+  }
+
+  emptyListReq(): AntidoteListReq {
+    const req = new AntidoteListReq();
+    req.pageNum = this.pageNum;
+    req.pageSize = this.pageSize;
+
+    return req;
   }
 
   nextPage() {
-    if (this.pageNum + 1 > this.apiResponse.data.pages) {
+    if (this.pageNum + 1 > this.pages) {
       return;
     }
     this.pageNum += 1;
-    this.antidoteListReq.pageNum = this.pageNum;
-    this.list();
+    const req = this.buildSearchReq();
+    this.list(req);
   }
 
   previousPage() {
@@ -105,28 +118,99 @@ export class AntidoteListComponent implements OnInit {
       return;
     }
     this.pageNum -= 1;
-    this.antidoteListReq.pageNum = this.pageNum;
-    this.list();
+    const req = this.buildSearchReq();
+    this.list(req);
   }
 
   jump(pageNum: number) {
     this.pageNum = pageNum;
-    this.antidoteListReq.pageNum = this.pageNum;
-    this.list();
+    const req = this.buildSearchReq();
+    this.list(req);
   }
 
-  showAntidote(id: bigint) {
+  showAntidoteDetail(operation: string, id?: bigint) {
+    const antidoteDetailButton = document.getElementById("antidoteDetailButton");
+    if (antidoteDetailButton != null) {
+      switch (operation) {
+        case 'add':
+          this.disabled = false;
+          this.modalPrefix = '新增';
+          this.antidote = new Antidote();
+          this.submitType = SubmitType.ADD;
+          antidoteDetailButton.textContent = '保存';
+          antidoteDetailButton.className = "btn btn-primary";
+          break;
+        case 'get':
+          this.get(id);
+          this.disabled = false;
+          this.modalPrefix = '';
+          this.submitType = SubmitType.UPDATE;
+          antidoteDetailButton.textContent = '保存';
+          antidoteDetailButton.className = "btn btn-primary";
+          break;
+        case 'update':
+          this.get(id);
+          this.disabled = false;
+          this.modalPrefix = '更新';
+          this.submitType = SubmitType.UPDATE;
+          antidoteDetailButton.textContent = '更新';
+          antidoteDetailButton.className = "btn btn-primary";
+          break;
+        case 'remove':
+          this.get(id);
+          this.disabled = true;
+          this.modalPrefix = '删除';
+          this.submitType = SubmitType.REMOVE;
+          antidoteDetailButton.textContent = '确认删除';
+          antidoteDetailButton.className = "btn btn-danger";
+          break;
+        default:
+          return;
+      }
+    }
+  }
+
+  remove() {
+    this.antidoteService.remove(this.antidote.id).subscribe(data => this.list(this.emptyListReq()));
+  }
+
+  update() {
+    const req = this.buildAntidoteReq();
+    this.antidoteService.update(req).subscribe(data => this.list(this.emptyListReq()));
+  }
+
+  buildAntidoteReq(): Antidote {
+    const req = new Antidote();
+    req.id = this.antidote.id;
+    req.title = this.antidote.title;
+    req.key = this.antidote.key;
+    req.val = this.cryptoService.encrypt(this.antidote.val);
+    req.remark = this.antidote.remark;
+
+    return req;
+  }
+
+  buildSearchReq(): AntidoteListReq {
+    const target = new AntidoteListReq();
+    target.title = this.searchParam.title;
+    target.key = this.searchParam.key;
+    target.remark = this.searchParam.remark;
+    target.pageNum = this.pageNum;
+    target.pageSize = this.pageSize;
+
+    return target;
+  }
+
+  private get(id?: bigint) {
+    if (id == null) {
+      return;
+    }
     this.antidoteService.get(id).subscribe(data => {
-      this.singleAntidoteRsp = data.apiResponse.data;
-      this.decryptVal = this.cryptoService.decrypt(this.singleAntidoteRsp.val);
+      if (data.httpCode === 200) {
+        let apiResponseData = data.apiResponse.data;
+        this.antidote = apiResponseData;
+        this.antidote.val = this.cryptoService.decrypt(apiResponseData.val);
+      }
     })
-  }
-
-  remove(id: bigint) {
-    this.antidoteService.remove(id).subscribe(data => this.list());
-  }
-
-  edit(id: bigint) {
-    this.router.navigate(["/angular/antidoteEdit"], {queryParams: {id}});
   }
 }

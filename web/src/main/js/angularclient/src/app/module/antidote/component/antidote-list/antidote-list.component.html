@@ -1,112 +1,140 @@
-<div class="container">
-  <form>
-    <div class="row g-3">
-      <div class="col-sm">
-        <input type="text" class="form-control" placeholder="Title" aria-label="Title"
-               [(ngModel)]="antidoteListReq.title"
-               name="title">
+<div class="container border mt-3">
+  <div class="container">
+    <form class="mt-3 mb-3">
+      <div class="row justify-content-start">
+        <div class="col">
+          <input type="email" class="form-control" id="searchTitle" placeholder="标题"
+                 name="searchTitle" [(ngModel)]="searchParam.title">
+        </div>
+        <div class="col">
+          <input type="email" class="form-control" id="searchKey" placeholder="账号"
+                 name="searchKey" [(ngModel)]="searchParam.key">
+        </div>
+        <div class="col">
+          <input type="email" class="form-control" id="searchRemark" placeholder="备注"
+                 name="searchRemark" [(ngModel)]="searchParam.remark">
+        </div>
+        <div class="col">
+          <button type="button" class="btn btn-outline-primary me-3" (click)="query()">搜索</button>
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#antidoteDetailModal"
+                  (click)="showAntidoteDetail('add')">
+            新增
+          </button>
+        </div>
       </div>
-      <div class="col-sm">
-        <input type="text" class="form-control" placeholder="Key" aria-label="Key" [(ngModel)]="antidoteListReq.key"
-               name="key">
+    </form>
+  </div>
+  <div class="container">
+    <table class="table table-hover border">
+      <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">标题</th>
+        <th scope="col">账号</th>
+        <th scope="col">备注</th>
+        <th scope="col">操作</th>
+      </tr>
+      </thead>
+      <tbody class="table-group-divider">
+      <tr *ngFor="let antidoteItem of antidoteList let i = index">
+        <td data-bs-toggle="modal" data-bs-target="#antidoteDetailModal"
+            (click)="showAntidoteDetail('update', antidoteItem.id)">
+          {{(pageNum - 1) * pageSize + i + 1}}</td>
+        <td data-bs-toggle="modal" data-bs-target="#antidoteDetailModal"
+            (click)="showAntidoteDetail('update', antidoteItem.id)">
+          {{antidoteItem.title}}</td>
+        <td data-bs-toggle="modal" data-bs-target="#antidoteDetailModal"
+            (click)="showAntidoteDetail('update', antidoteItem.id)">
+          {{antidoteItem.key}}</td>
+        <td data-bs-toggle="modal" data-bs-target="#antidoteDetailModal"
+            (click)="showAntidoteDetail('update', antidoteItem.id)">
+          {{antidoteItem.remark}}</td>
+        <td>
+          <button type="button" class="btn btn-outline-success btn-sm border-0" data-bs-toggle="modal"
+                  data-bs-target="#antidoteDetailModal" (click)="showAntidoteDetail('update', antidoteItem.id)">编辑
+          </button>
+          <button type="button" class="btn btn-outline-danger btn-sm border-0" data-bs-toggle="modal"
+                  data-bs-target="#antidoteDetailModal" (click)="showAntidoteDetail('remove', antidoteItem.id)">删除
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="container mt-3">
+    <div class="row align-items-center">
+      <div class="col-2">
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            <li class="page-item" [ngClass]="shouPrevious" (click)="previousPage()">
+              <a class="page-link" href="javascript:" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <div *ngIf="prePageNum > 0">
+              <li class="page-item">
+                <a class="page-link" href="javascript:" (click)="jump(prePageNum)">
+                  {{prePageNum}}
+                </a>
+              </li>
+            </div>
+            <li class="page-item active"><a class="page-link" href="javascript:" (click)="jump(pageNum)">{{pageNum}}</a></li>
+            <div *ngIf="nextPageNum > 0">
+              <li class="page-item">
+                <a class="page-link" href="javascript:" (click)="jump(nextPageNum)">
+                  {{nextPageNum}}
+                </a>
+              </li>
+            </div>
+            <li class="page-item" [ngClass]="shouNext" (click)="nextPage()">
+              <a class="page-link" href="javascript:" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
       </div>
-      <div class="col-sm">
-        <input type="text" class="form-control" placeholder="Remark" aria-label="Remark"
-               [(ngModel)]="antidoteListReq.remark" name="remark">
+      <div class="col-2">
+        <p>共 {{total}} 条, {{pages}} 页</p>
       </div>
     </div>
-    <div class="d-grid gap-2 d-md-block">
-      <button class="btn btn-outline-primary" type="button" (click)="onSubmit()">查询</button>
-      <button class="btn btn-outline-primary" type="button" (click)="add()">新增</button>
-      <button class="btn btn-outline-primary" type="reset">重置</button>
-    </div>
-  </form>
-  <table class="table table-hover">
-    <thead class="table-light">
-    <tr>
-      <th scope="col">id</th>
-      <th scope="col">title</th>
-      <th scope="col">key</th>
-      <th scope="col">remark</th>
-      <th scope="col">val</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let antidoteRsp of apiResponse.data.list">
-      <td>{{ antidoteRsp.id }}</td>
-      <td>{{ antidoteRsp.title }}</td>
-      <td>{{ antidoteRsp.key }}</td>
-      <td>{{ antidoteRsp.remark }}</td>
-      <td (click)="showAntidote(antidoteRsp.id)">
-        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#antidoteDetailModal">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye"
-               viewBox="0 0 16 16">
-            <path
-              d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
-            <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
-          </svg>
-        </button>
-      </td>
-    </tr>
-    </tbody>
-  </table>
-  <nav aria-label="Page navigation example">
-    <ul class="pagination">
-      <li class="page-item" [ngClass]="shouPrevious" (click)="previousPage()">
-        <a class="page-link" href="javascript:">Previous</a>
-      </li>
-      <div *ngIf="apiResponse.data.prePage > 0">
-        <li class="page-item"><a class="page-link" href="javascript:"
-                                 (click)="jump(apiResponse.data.prePage)">{{ apiResponse.data.prePage }}</a>
-        </li>
-      </div>
-      <li class="page-item active" aria-current="page">
-        <a class="page-link" href="javascript:"
-           (click)="jump(apiResponse.data.pageNum)">{{ apiResponse.data.pageNum }}</a>
-      </li>
-      <div *ngIf="apiResponse.data.nextPage > 0">
-        <li class="page-item">
-          <a class="page-link" href="javascript:"
-             (click)="jump(apiResponse.data.nextPage)">{{ apiResponse.data.nextPage }}</a>
-        </li>
-      </div>
-      <li class="page-item" [ngClass]="shouNext" (click)="nextPage()">
-        <a class="page-link" href="javascript:">Next</a>
-      </li>
-    </ul>
-  </nav>
+  </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="antidoteDetailModal" tabindex="-1" aria-labelledby="antidoteDetailModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
+<!-- 新增、编辑Modal -->
+<div class="modal fade" id="antidoteDetailModal" tabindex="-1" aria-labelledby="antidoteDetailModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="antidoteDetailModalLabel">{{ singleAntidoteRsp.title }}</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <h1 class="modal-title fs-5" id="antidoteDetailModalLabel">{{modalPrefix}}解药详情</h1>
       </div>
       <div class="modal-body">
         <div class="mb-3">
-          <label for="antidoteKey" class="form-label">key</label>
-          <input type="email" class="form-control" disabled readonly id="antidoteKey" name="antidoteKey"
-                 [(ngModel)]="singleAntidoteRsp.key">
+          <label for="antidoteTitle" class="form-label">标题</label>
+          <input type="text" class="form-control" id="antidoteTitle" name="antidoteTitle"
+                 [(ngModel)]="antidote.title" [disabled]="disabled">
         </div>
         <div class="mb-3">
-          <label for="antidoteVal" class="form-label">val</label>
-          <input type="email" class="form-control" disabled readonly id="antidoteVal" name="antidoteKey"
-                 [(ngModel)]="decryptVal">
+          <label for="antidoteKey" class="form-label">账号</label>
+          <input type="text" class="form-control" id="antidoteKey" name="antidoteKey"
+                 [(ngModel)]="antidote.key" [disabled]="disabled">
         </div>
         <div class="mb-3">
-          <div class="mb-3">
-            <label for="antidoteRemark" class="form-label">remark</label>
-            <textarea class="form-control" disabled readonly id="antidoteRemark" name="antidoteKey" rows="3" [(ngModel)]="singleAntidoteRsp.remark"></textarea>
-          </div>
+          <label for="antidoteVal" class="form-label">解药</label>
+          <input type="text" class="form-control" id="antidoteVal" name="antidoteVal"
+                 [(ngModel)]="antidote.val" [disabled]="disabled">
+        </div>
+        <div class="mb-3">
+          <label for="antidoteRemark" class="form-label">备注</label>
+          <textarea class="form-control" id="antidoteRemark" rows="3" name="antidoteRemark"
+                    [(ngModel)]="antidote.remark" [disabled]="disabled"></textarea>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="edit(singleAntidoteRsp.id)" >编辑</button>
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="remove(singleAntidoteRsp.id)">删除</button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button id="antidoteDetailButton" type="button" class="btn btn-primary" data-bs-toggle="modal"
+                data-bs-target="#antidoteDetailModal" (click)="onSubmit()">保存
+        </button>
       </div>
     </div>
   </div>

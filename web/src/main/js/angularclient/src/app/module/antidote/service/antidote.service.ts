@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {AntidoteAddReq} from "../model/antidote-add-req";
 import {Antidote} from "../model/antidote";
 import {Observable} from "rxjs";
 import {AntidoteListReq} from "../model/antidote-list-req";
@@ -27,8 +26,8 @@ export class AntidoteService {
     this.deleteUrl = this.httpHost + '/eden/antidote/delete?id=';
   }
 
-  add(antidoteReq: AntidoteAddReq): Observable<HttpResponse<Antidote>> {
-    return this.http.post<HttpResponse<Antidote>>(this.addUrl, antidoteReq);
+  add(antidote: Antidote): Observable<HttpResponse<Antidote>> {
+    return this.http.post<HttpResponse<Antidote>>(this.addUrl, antidote);
   }
 
   list(antidoteListReq: AntidoteListReq): Observable<HttpResponse<PageListRsp<Antidote>>> {
@@ -43,7 +42,7 @@ export class AntidoteService {
     return this.http.get(this.deleteUrl + id);
   }
 
-  edit(antidoteReq: AntidoteAddReq): Observable<HttpResponse<Antidote>> {
-    return this.http.post<HttpResponse<Antidote>>(this.editUrl, antidoteReq);
+  update(antidote: Antidote): Observable<HttpResponse<Antidote>> {
+    return this.http.post<HttpResponse<Antidote>>(this.editUrl, antidote);
   }
 }

@@ -60,12 +60,12 @@
         <form>
           <div class="mb-3">
             <label for="loginAccount" class="form-label">账号</label>
-            <input type="text" class="form-control" id="loginAccount" name="accountPhone"
+            <input type="text" class="form-control" id="loginAccount" name="account"
                    [(ngModel)]="loginReq.account">
           </div>
           <div class="mb-3">
             <label for="loginPassword" class="form-label">密码</label>
-            <input type="password" class="form-control" id="loginPassword" name="accountPassword"
+            <input type="password" class="form-control" id="loginPassword" name="password"
                    [(ngModel)]="loginReq.password">
           </div>
           <button type="submit" class="btn btn-primary" (click)="onSubmit()">登录</button>

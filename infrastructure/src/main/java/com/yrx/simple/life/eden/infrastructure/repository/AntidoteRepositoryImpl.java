@@ -3,6 +3,7 @@ package com.yrx.simple.life.eden.infrastructure.repository;
 import com.github.pagehelper.PageHelper;
 import com.yrx.simple.life.eden.domain.dto.query.AntidoteQuery;
 import com.yrx.simple.life.eden.domain.entity.Antidote;
+import com.yrx.simple.life.eden.domain.enumeration.DelFlagEnum;
 import com.yrx.simple.life.eden.domain.persistence.AntidoteRepository;
 import com.yrx.simple.life.eden.infrastructure.converter.AntidoteConverter;
 import com.yrx.simple.life.eden.infrastructure.mapper.AntidotePoMapper;
@@ -25,10 +26,11 @@ public class AntidoteRepositoryImpl implements AntidoteRepository {
     @Override
     public Antidote save(Antidote antidote) {
         AntidotePo po = antidoteConverter.convertEntityToPo(antidote);
+        po.setDelFlag(DelFlagEnum.NORMAL.getFlag());
         if (po.getId() == null) {
-            Long id =  antidotePoExtMapper.insert(po);
+            Long id = antidotePoExtMapper.insert(po);
             antidote.setId(id);
-        }else {
+        } else {
             antidotePoMapper.updateByPrimaryKey(po);
         }
         return antidote;
