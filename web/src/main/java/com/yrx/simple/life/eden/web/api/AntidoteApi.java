@@ -31,9 +31,9 @@ public class AntidoteApi {
         return antidoteService.add(req);
     }
 
-    @PostMapping("edit")
-    public HttpResponse<Antidote> edit(@Validated @RequestBody AntidoteEditReq req) {
-        return HttpResponse.success(antidoteService.edit(req));
+    @PostMapping("update")
+    public HttpResponse<Antidote> update(@Validated @RequestBody AntidoteEditReq req) {
+        return HttpResponse.success(antidoteService.update(req));
     }
 
     @PostMapping("list")

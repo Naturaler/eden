@@ -18,5 +18,5 @@ public interface AntidoteService {
 
     ApiResponse<Antidote> delete(Long id);
 
-    ApiResponse<Antidote> edit(AntidoteEditReq req);
+    ApiResponse<Antidote> update(AntidoteEditReq req);
 }

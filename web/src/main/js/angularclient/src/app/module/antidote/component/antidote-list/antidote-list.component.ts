@@ -26,7 +26,7 @@ export class AntidoteListComponent implements OnInit {
   pages!: number;
   total!: number;
   submitType!: SubmitType;
-  disabled!: boolean;
+  inputDisabled!: boolean;
 
   constructor(private router: Router, private antidoteService: AntidoteService, private cryptoService: CryptoService) {
     this.searchParam = new AntidoteSearchParam();
@@ -41,7 +41,7 @@ export class AntidoteListComponent implements OnInit {
     this.shouNext = 'disabled';
     this.modalPrefix = '';
     this.submitType = SubmitType.LIST;
-    this.disabled = false;
+    this.inputDisabled = false;
   }
 
   ngOnInit(): void {
@@ -82,7 +82,7 @@ export class AntidoteListComponent implements OnInit {
         this.update();
         break;
       case SubmitType.REMOVE:
-        this.remove();
+        this.delete();
         break;
       case SubmitType.GET:
       case SubmitType.LIST:
@@ -133,7 +133,7 @@ export class AntidoteListComponent implements OnInit {
     if (antidoteDetailButton != null) {
       switch (operation) {
         case 'add':
-          this.disabled = false;
+          this.inputDisabled = false;
           this.modalPrefix = '新增';
           this.antidote = new Antidote();
           this.submitType = SubmitType.ADD;
@@ -142,7 +142,7 @@ export class AntidoteListComponent implements OnInit {
           break;
         case 'get':
           this.get(id);
-          this.disabled = false;
+          this.inputDisabled = false;
           this.modalPrefix = '';
           this.submitType = SubmitType.UPDATE;
           antidoteDetailButton.textContent = '保存';
@@ -150,7 +150,7 @@ export class AntidoteListComponent implements OnInit {
           break;
         case 'update':
           this.get(id);
-          this.disabled = false;
+          this.inputDisabled = false;
           this.modalPrefix = '更新';
           this.submitType = SubmitType.UPDATE;
           antidoteDetailButton.textContent = '更新';
@@ -158,7 +158,7 @@ export class AntidoteListComponent implements OnInit {
           break;
         case 'remove':
           this.get(id);
-          this.disabled = true;
+          this.inputDisabled = true;
           this.modalPrefix = '删除';
           this.submitType = SubmitType.REMOVE;
           antidoteDetailButton.textContent = '确认删除';
@@ -170,8 +170,8 @@ export class AntidoteListComponent implements OnInit {
     }
   }
 
-  remove() {
-    this.antidoteService.remove(this.antidote.id).subscribe(data => this.list(this.emptyListReq()));
+  delete() {
+    this.antidoteService.delete(this.antidote.id).subscribe(data => this.list(this.emptyListReq()));
   }
 
   update() {

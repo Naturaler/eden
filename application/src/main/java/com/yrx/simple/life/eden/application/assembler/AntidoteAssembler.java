@@ -19,5 +19,5 @@ public interface AntidoteAssembler {
     AntidoteRsp convertEntityToRsp(Antidote antidote);
     List<AntidoteRsp> convertEntitiesToRsp(List<Antidote> list);
 
-    Antidote convertEditReqToEntity(AntidoteEditReq req);
+    Antidote convertUpdateReqToEntity(AntidoteEditReq req);
 }

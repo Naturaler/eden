@@ -1,17 +1,18 @@
 <div class="container border mt-3">
-  <div class="container">
+  <!-- 搜索栏 -->
+  <div>
     <form class="mt-3 mb-3">
       <div class="row justify-content-start">
         <div class="col">
-          <input type="email" class="form-control" id="searchTitle" placeholder="标题"
+          <input type="text" class="form-control" id="searchTitle" placeholder="标题"
                  name="searchTitle" [(ngModel)]="searchParam.title">
         </div>
         <div class="col">
-          <input type="email" class="form-control" id="searchKey" placeholder="账号"
+          <input type="text" class="form-control" id="searchKey" placeholder="账号"
                  name="searchKey" [(ngModel)]="searchParam.key">
         </div>
         <div class="col">
-          <input type="email" class="form-control" id="searchRemark" placeholder="备注"
+          <input type="text" class="form-control" id="searchRemark" placeholder="备注"
                  name="searchRemark" [(ngModel)]="searchParam.remark">
         </div>
         <div class="col">
@@ -24,7 +25,9 @@
       </div>
     </form>
   </div>
-  <div class="container">
+
+  <!-- 列表 -->
+  <div>
     <table class="table table-hover border">
       <thead>
       <tr>
@@ -61,7 +64,9 @@
       </tbody>
     </table>
   </div>
-  <div class="container mt-3">
+
+  <!-- 分页 -->
+  <div class="mt-3">
     <div class="row align-items-center">
       <div class="col-2">
         <nav aria-label="Page navigation example">
@@ -113,22 +118,22 @@
         <div class="mb-3">
           <label for="antidoteTitle" class="form-label">标题</label>
           <input type="text" class="form-control" id="antidoteTitle" name="antidoteTitle"
-                 [(ngModel)]="antidote.title" [disabled]="disabled">
+                 [(ngModel)]="antidote.title" [disabled]="inputDisabled">
         </div>
         <div class="mb-3">
           <label for="antidoteKey" class="form-label">账号</label>
           <input type="text" class="form-control" id="antidoteKey" name="antidoteKey"
-                 [(ngModel)]="antidote.key" [disabled]="disabled">
+                 [(ngModel)]="antidote.key" [disabled]="inputDisabled">
         </div>
         <div class="mb-3">
           <label for="antidoteVal" class="form-label">解药</label>
           <input type="text" class="form-control" id="antidoteVal" name="antidoteVal"
-                 [(ngModel)]="antidote.val" [disabled]="disabled">
+                 [(ngModel)]="antidote.val" [disabled]="inputDisabled">
         </div>
         <div class="mb-3">
           <label for="antidoteRemark" class="form-label">备注</label>
           <textarea class="form-control" id="antidoteRemark" rows="3" name="antidoteRemark"
-                    [(ngModel)]="antidote.remark" [disabled]="disabled"></textarea>
+                    [(ngModel)]="antidote.remark" [disabled]="inputDisabled"></textarea>
         </div>
       </div>
       <div class="modal-footer">

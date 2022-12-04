@@ -12,15 +12,15 @@ import {environment} from "../../../../environments/environment";
 })
 export class AntidoteService {
   httpHost = environment.httpHost;
-  private addUrl!: string;
-  private editUrl!: string;
-  private listUrl!: string;
-  private getUrl!: string;
-  private deleteUrl!: string;
+  private readonly addUrl!: string;
+  private readonly editUrl!: string;
+  private readonly listUrl!: string;
+  private readonly getUrl!: string;
+  private readonly deleteUrl!: string;
 
   constructor(private http: HttpClient) {
     this.addUrl = this.httpHost + '/eden/antidote/add';
-    this.editUrl = this.httpHost + '/eden/antidote/edit';
+    this.editUrl = this.httpHost + '/eden/antidote/update';
     this.listUrl = this.httpHost + '/eden/antidote/list';
     this.getUrl = this.httpHost + '/eden/antidote/get?id=';
     this.deleteUrl = this.httpHost + '/eden/antidote/delete?id=';
@@ -38,7 +38,7 @@ export class AntidoteService {
     return this.http.get<HttpResponse<Antidote>>(this.getUrl + id);
   }
 
-  remove(id: bigint) {
+  delete(id: bigint) {
     return this.http.get(this.deleteUrl + id);
   }
 

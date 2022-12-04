@@ -53,8 +53,8 @@ public class AntidoteServiceImpl implements AntidoteService {
     }
 
     @Override
-    public ApiResponse<Antidote> edit(AntidoteEditReq req) {
-        Antidote antidote = antidoteAssembler.convertEditReqToEntity(req);
+    public ApiResponse<Antidote> update(AntidoteEditReq req) {
+        Antidote antidote = antidoteAssembler.convertUpdateReqToEntity(req);
         return ApiResponse.success(antidoteRepository.save(antidote));
     }
 }

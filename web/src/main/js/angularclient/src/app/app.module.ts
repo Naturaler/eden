@@ -9,11 +9,13 @@ import {AntidoteService} from "./module/antidote/service/antidote.service";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {AuthInterceptor} from "./module/common/global/auth.interceptor";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NoteListComponent } from './module/note/component/note-list/note-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AntidoteListComponent
+    AntidoteListComponent,
+    NoteListComponent
   ],
   imports: [
     BrowserModule,
